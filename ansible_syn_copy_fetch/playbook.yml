@@ -1,0 +1,36 @@
+---
+#This play is used to copy files frm one server to other 
+- name: "Copy files"
+  hosts: db
+  become: yes
+  gather_facts: false
+  vars:
+    source: /home/ansadmin/test/one.txt
+    dest: /home/ansadmin/test/
+  tasks:
+    - name: "Copy file"
+      copy:
+        src: "{{source}}"
+        dest: "{{dest}}"
+        owner: ansadmin
+        group: root
+        mode: 777
+
+#This play is used to fetch files from onee server to ansibler master
+- name: "Fetch Files"
+  hosts: db
+  become: yes
+  gather_facts: false
+  vars: 
+    source1: /home/ansadmin/test/two.txt
+    dest1: /home/ansadmin/test/
+  tasks:
+  - name: "Fetch file"
+    fetch:
+      src: "{{source1}}"
+      dest: "{{dest1}}"
+      owner: ansadmin
+      group: root
+      mode: 777
+      flat: true
+  

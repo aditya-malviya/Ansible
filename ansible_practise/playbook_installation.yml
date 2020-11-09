@@ -1,0 +1,35 @@
+---
+
+#This playbook deploys whole application requirement for Java application.
+- name: "Install git on db server"
+  hosts: db
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: "Install git on db server"
+      yum:
+        name: "{{git}}"
+        state: absent
+
+  
+- name: "Install java on all server"
+  hosts: all
+  gather_facts: false
+  become: true
+  tasks:
+    - name: "Install java"
+      yum:
+        name: "{{java8}}"
+        state: absent
+
+
+- name: "Install maven on web server"
+  hosts: web
+  gather_facts: false
+  become: true
+  tasks:
+    - name: "Install maven"
+      yum:
+        name: "{{maven}}"
+        state: absent
+ 
